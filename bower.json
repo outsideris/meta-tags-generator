@@ -1,0 +1,12 @@
+{
+  "name": "meta-tags-generator",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {}
+}
