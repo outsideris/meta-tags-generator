@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <header id="hero">
+      <h1>Meta Tags Generator</h1>
+      <h4>
+        There are too many meta tags we need to add.
+        It's very simple but hard to know what purpose they are for.
+      </h4>
+    </header>
     <form>
       <label for="name">Site Name</label>
       <input type="text" id="name">
@@ -17,11 +24,33 @@
       <input type="text" id="url">
       <label for="image">Page Image</label>
       <input type="text" id="image">
-      <input type="submit" value="Generate">
+      <fieldset id="input-fb">
+        <legend>Open Graph</legend>
+        <input type="radio" name="og-type" id="og-type-article" value="article">
+        <label for="og-type-article">article</label>
+        <input type="radio" name="og-type" id="og-type-profile" value="profile">
+        <label for="og-type-profile">profile</label>
+        <input type="radio" name="og-type" id="og-type-website" value="website">
+        <label for="og-type-website">website</label>
+      </fieldset>
+      <div class="input-bottom">
+        <input type="submit" value="Generate">
+      </div>
     </form>
-    <textarea id="meta">
+    <section class="meta-area">
+      <textarea id="meta">
+        // code here
+      </textarea>
+    </section>
+    <footer>
+      <div class="author">
+        It was made by Outsider. You can follow me on
+        <a href="https://github.com/outsideris">Github</a> or
+        <a href="https://twitter.com/outsideris">Twitter</a>.
+        Source code is hosted on Github
+      </div>
+    </footer>
 
-    </textarea>
     <script src="js/script.js"></script>
   </body>
 </html>

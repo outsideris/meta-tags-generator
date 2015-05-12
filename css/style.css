@@ -1,0 +1,96 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    color: #191920;
+}
+
+#hero {
+    background: url('../img/hero.jpg') no-repeat 0 100%;
+    background-size: cover;
+    height: 400px;
+    width: 100%;
+    padding-top: 100px;
+}
+
+#hero h1,
+#hero h4 {
+    max-width: 500px;
+    width: 70%;
+    margin-left: 30px;
+}
+
+form {
+    max-width: 900px;
+    width: 90%;
+    margin: 30px auto;
+}
+
+form label {
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"] {
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.input-bottom {
+    margin-top: 20px;
+    text-align: right;
+}
+
+form input[type="submit"] {
+    background-color: #EF6747;
+    color: #ffffff;
+    border: none;
+    font-size: 1.5rem;
+    padding: 5px 20px;
+}
+
+fieldset label {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+#input-fb {
+    border: none;
+    border-top: 1px solid #3b5998;
+    border-bottom: 1px solid #3b5998;
+}
+#input-fb legend {
+    color: #3b5998;
+}
+
+.meta-area {
+    background-color: #E3E7EC;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#meta {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    min-height: 400px;
+}
+
+footer {
+    padding-top: 30px;
+    padding-bottom: 100px;
+}
+
+.author {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    text-align: center;
+}
