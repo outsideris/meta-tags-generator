@@ -11,12 +11,13 @@
       url = document.querySelector('#url'),
       image = document.querySelector('#image');
 
-
+  hljs.highlightBlock(meta);
   body.addEventListener('submit', function(e) {
     e.preventDefault();
     var tags = generateMeta();
 
-    meta.innerHTML = tags;
+    meta.innerHTML = escapeHtml(tags);
+    hljs.highlightBlock(meta);
   });
 
   function template(t) {
@@ -26,6 +27,20 @@
         return typeof r === 'string' || typeof r === 'number' ? r : a;
       });
     };
+  }
+
+  var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+  function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+      return entityMap[s];
+    });
   }
 
   var ogName = template('<meta property="og:site_name" content="{name}">'),
