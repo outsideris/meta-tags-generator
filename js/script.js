@@ -3,14 +3,6 @@
 
   var body = document.body;
   var meta = document.querySelector('#meta');
-
-  // inputs
-  var name = document.querySelector('#name'),
-      title = document.querySelector('#title'),
-      desc = document.querySelector('#desc'),
-      url = document.querySelector('#url'),
-      image = document.querySelector('#image');
-
   hljs.highlightBlock(meta);
   body.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -43,19 +35,42 @@
     });
   }
 
+  // inputs
+  var name = document.querySelector('#name'),
+      title = document.querySelector('#title'),
+      desc = document.querySelector('#desc'),
+      url = document.querySelector('#url'),
+      image = document.querySelector('#image');
+
+  // templates
   var ogName = template('<meta property="og:site_name" content="{name}">'),
       ogTitle = template('<meta property="og:title" content="{title}">'),
       ogDesc = template('<meta property="og:description" content="{desc}">'),
       ogUrl = template('<meta property="og:url" content="{url}">'),
-      ogImage = template('<meta property="og:image" content="{image}">');
+      ogImage = template('<meta property="og:image" content="{image}">'),
+      ogType = template('<meta property="og:type" content="{ogtype}">')
 
   function generateMeta() {
     var tags = [];
-    tags.push(ogName({name: name.value}));
-    tags.push(ogTitle({title: title.value}));
-    tags.push(ogDesc({desc: desc.value}));
-    tags.push(ogUrl({url: url.value}));
-    tags.push(ogImage({image: image.value}));
+    if (name.value) {
+      tags.push(ogName({name: name.value}));
+    }
+    if (title.value) {
+      tags.push(ogTitle({title: title.value}));
+    }
+    if (desc.value) {
+      tags.push(ogDesc({desc: desc.value}));
+    }
+    if (url.value) {
+      tags.push(ogUrl({url: url.value}));
+    }
+    if (image.value) {
+      tags.push(ogImage({image: image.value}));
+    }
+    var ot = document.querySelector('.og-type:checked');
+    if (ot.value) {
+      tags.push(ogType({ogtype: ot.value}));
+    }
     return tags.join('\n');
   }
 
