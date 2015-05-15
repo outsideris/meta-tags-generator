@@ -40,7 +40,8 @@
       title = document.querySelector('#title'),
       desc = document.querySelector('#desc'),
       url = document.querySelector('#url'),
-      image = document.querySelector('#image');
+      image = document.querySelector('#image'),
+      twitterSite = document.querySelector('#tw-site');
 
   // templates
   var ogName = template('<meta property="og:site_name" content="{name}">'),
@@ -48,29 +49,52 @@
       ogDesc = template('<meta property="og:description" content="{desc}">'),
       ogUrl = template('<meta property="og:url" content="{url}">'),
       ogImage = template('<meta property="og:image" content="{image}">'),
-      ogType = template('<meta property="og:type" content="{ogtype}">')
+      ogType = template('<meta property="og:type" content="{ogtype}">');
+  var twCard = template('<meta name="twitter:card" content="{card}">'),
+      twUrl = template('<meta name="twitter:url" content="{url}">'),
+      twTitle = template('<meta name="twitter:title" content="{title}">'),
+      twDesc = template('<meta name="twitter:description" content="{desc}">'),
+      twImage = template('<meta name="twitter:image" content="{image}">'),
+      twSite = template('<meta name="twitter:site" content="{site}">');
 
   function generateMeta() {
-    var tags = [];
+    var ogTags = [],
+        twTages =[];
+
     if (name.value) {
-      tags.push(ogName({name: name.value}));
+      ogTags.push(ogName({name: name.value}));
     }
     if (title.value) {
-      tags.push(ogTitle({title: title.value}));
+      ogTags.push(ogTitle({title: title.value}));
+      twTages.push(twTitle({title: title.value}));
     }
     if (desc.value) {
-      tags.push(ogDesc({desc: desc.value}));
+      ogTags.push(ogDesc({desc: desc.value}));
+      twTages.push(twDesc({desc: desc.value}));
     }
     if (url.value) {
-      tags.push(ogUrl({url: url.value}));
+      ogTags.push(ogUrl({url: url.value}));
+      twTages.push(twUrl({url: url.value}));
     }
     if (image.value) {
-      tags.push(ogImage({image: image.value}));
+      ogTags.push(ogImage({image: image.value}));
+      twTages.push(twImage({image: image.value}));
     }
+    // open graph only
     var ot = document.querySelector('.og-type:checked');
-    if (ot.value) {
-      tags.push(ogType({ogtype: ot.value}));
+    if (ot && ot.value) {
+      ogTags.push(ogType({ogtype: ot.value}));
     }
+    // twitter card only
+    var tc = document.querySelector('.tw-card:checked');
+    if (tc && tc.value) {
+      twTages.push(twCard({card: tc.value}));
+    }
+    if (twitterSite.value) {
+      twTages.push(twSite({site: twitterSite.value}));
+    }
+
+    var tags = ogTags.concat(twTages);
     return tags.join('\n');
   }
 

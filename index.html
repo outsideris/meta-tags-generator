@@ -27,6 +27,7 @@
       <input type="text" id="image">
       <fieldset id="input-fb">
         <legend>Open Graph</legend>
+        <h4>Types</h4>
         <input type="radio" name="og-type" class="og-type" id="og-type-article" value="article">
         <label for="og-type-article">article</label>
         <input type="radio" name="og-type" class="og-type" id="og-type-book" value="book">
@@ -35,6 +36,24 @@
         <label for="og-type-profile">profile</label>
         <input type="radio" name="og-type" class="og-type" id="og-type-website" value="website">
         <label for="og-type-website">website</label>
+      </fieldset>
+      <fieldset id="input-tw">
+        <legend>Twitter Card</legend>
+        <h4>Card Types</h4>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-summary" value="summary">
+        <label for="tw-card-summary">Summary Card</label>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-summary-image" value="summary_large_image">
+        <label for="tw-card-summary-image">Summary Card with Large Image</label>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-photo" value="photo">
+        <label for="tw-card-photo">Photo Card</label>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-gallery" value="gallery">
+        <label for="tw-card-gallery">Gallery Card</label>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-app" value="app">
+        <label for="tw-card-app">App Card</label>
+        <input type="radio" name="tw-card" class="tw-card" id="tw-card-player" value="player">
+        <label for="tw-card-player">Player Card</label>
+        <label for="tw-site">Site</label>
+        <input type="text" id="tw-site" placeholder="@username">
       </fieldset>
       <div class="input-bottom">
         <input type="submit" value="Generate">

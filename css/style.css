@@ -67,6 +67,14 @@ fieldset label {
 #input-fb legend {
     color: #3b5998;
 }
+#input-tw {
+    border: none;
+    border-top: 1px solid #55ACEE;
+    border-bottom: 1px solid #55ACEE;
+}
+#input-tw legend {
+    color: #55ACEE;
+}
 
 .meta-area {
     background-color: #E3E7EC;
