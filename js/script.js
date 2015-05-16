@@ -14,10 +14,14 @@
 
   function template(t) {
     return function(o) {
-      return t.replace(/\{([^{}]*)\}/g, function(a, b) {
-        var r = o[b];
-        return typeof r === 'string' || typeof r === 'number' ? r : a;
-      });
+      var hasValue = true;
+      Object.keys(o).forEach(function(k) { if (!o[k]) { hasValue = false; } });
+      if (hasValue) {
+        return t.replace(/\{([^{}]*)\}/g, function(a, b) {
+          var r = o[b];
+          return typeof r === 'string' || typeof r === 'number' ? r : a;
+        });
+      }
     };
   }
 
@@ -58,43 +62,27 @@
       twSite = template('<meta name="twitter:site" content="{site}">');
 
   function generateMeta() {
-    var ogTags = [],
-        twTages =[];
+    var tags = [];
 
-    if (name.value) {
-      ogTags.push(ogName({name: name.value}));
-    }
-    if (title.value) {
-      ogTags.push(ogTitle({title: title.value}));
-      twTages.push(twTitle({title: title.value}));
-    }
-    if (desc.value) {
-      ogTags.push(ogDesc({desc: desc.value}));
-      twTages.push(twDesc({desc: desc.value}));
-    }
-    if (url.value) {
-      ogTags.push(ogUrl({url: url.value}));
-      twTages.push(twUrl({url: url.value}));
-    }
-    if (image.value) {
-      ogTags.push(ogImage({image: image.value}));
-      twTages.push(twImage({image: image.value}));
-    }
-    // open graph only
+    // open graph
+    tags.push(ogName({name: name.value}));
+    tags.push(ogTitle({title: title.value}));
+    tags.push(ogDesc({desc: desc.value}));
+    tags.push(ogUrl({url: url.value}));
+    tags.push(ogImage({image: image.value}));
     var ot = document.querySelector('.og-type:checked');
-    if (ot && ot.value) {
-      ogTags.push(ogType({ogtype: ot.value}));
-    }
-    // twitter card only
-    var tc = document.querySelector('.tw-card:checked');
-    if (tc && tc.value) {
-      twTages.push(twCard({card: tc.value}));
-    }
-    if (twitterSite.value) {
-      twTages.push(twSite({site: twitterSite.value}));
-    }
+    tags.push(ogType({ogtype: !!ot?ot.value:null}));
 
-    var tags = ogTags.concat(twTages);
+    // twitter card
+    tags.push(twTitle({title: title.value}));
+    tags.push(twDesc({desc: desc.value}));
+    tags.push(twUrl({url: url.value}));
+    tags.push(twImage({image: image.value}));
+    var tc = document.querySelector('.tw-card:checked');
+    tags.push(twCard({card: !!tc?tc.value:null}));
+    tags.push(twSite({site: twitterSite.value}));
+
+    tags = tags.filter(function(val) { return val !== null && val !== undefined; });
     return tags.join('\n');
   }
 
