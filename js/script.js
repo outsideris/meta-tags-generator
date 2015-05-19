@@ -1,15 +1,14 @@
 ;(function() {
   'use strict';
 
-  var body = document.body;
-  var meta = document.querySelector('#meta');
+  var meta$ = $('#meta');
   hljs.highlightBlock(meta);
-  body.addEventListener('submit', function(e) {
+  $(document.body).on('submit', function(e) {
     e.preventDefault();
     var tags = generateMeta();
 
-    meta.innerHTML = escapeHtml(tags);
-    hljs.highlightBlock(meta);
+    meta$.html(escapeHtml(tags));
+    hljs.highlightBlock(meta$.get(0));
   });
 
   function template(t) {
@@ -40,12 +39,12 @@
   }
 
   // inputs
-  var name = document.querySelector('#name'),
-      title = document.querySelector('#title'),
-      desc = document.querySelector('#desc'),
-      url = document.querySelector('#url'),
-      image = document.querySelector('#image'),
-      twitterSite = document.querySelector('#tw-site');
+  var name$ = $('#name'),
+      title$ = $('#title'),
+      desc$ = $('#desc'),
+      url$ = $('#url'),
+      image$ = $('#image'),
+      twitterSite$ = $('#tw-site');
 
   // templates
   var ogName = template('<meta property="og:site_name" content="{name}">'),
@@ -65,22 +64,22 @@
     var tags = [];
 
     // open graph
-    tags.push(ogName({name: name.value}));
-    tags.push(ogTitle({title: title.value}));
-    tags.push(ogDesc({desc: desc.value}));
-    tags.push(ogUrl({url: url.value}));
-    tags.push(ogImage({image: image.value}));
-    var ot = document.querySelector('.og-type:checked');
-    tags.push(ogType({ogtype: !!ot?ot.value:null}));
+    tags.push(ogName({name: name$.val()}));
+    tags.push(ogTitle({title: title$.val()}));
+    tags.push(ogDesc({desc: desc$.val()}));
+    tags.push(ogUrl({url: url$.val()}));
+    tags.push(ogImage({image: image$.val()}));
+    var ot$ = $('.og-type:checked');
+    tags.push(ogType({ogtype: ot$.length?ot$.val():null}));
 
     // twitter card
-    tags.push(twTitle({title: title.value}));
-    tags.push(twDesc({desc: desc.value}));
-    tags.push(twUrl({url: url.value}));
-    tags.push(twImage({image: image.value}));
-    var tc = document.querySelector('.tw-card:checked');
-    tags.push(twCard({card: !!tc?tc.value:null}));
-    tags.push(twSite({site: twitterSite.value}));
+    tags.push(twTitle({title: title$.val()}));
+    tags.push(twDesc({desc: desc$.val()}));
+    tags.push(twUrl({url: url$.val()}));
+    tags.push(twImage({image: image$.val()}));
+    var tc$ = $('.tw-card:checked');
+    tags.push(twCard({card: tc$.length?tc$.val():null}));
+    tags.push(twSite({site: twitterSite$.val()}));
 
     tags = tags.filter(function(val) { return val !== null && val !== undefined; });
     return tags.join('\n');
