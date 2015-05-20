@@ -1,7 +1,16 @@
 ;(function() {
   'use strict';
 
-  var meta$ = $('#meta');
+  var tagInfoMap = {
+    'og:site_name': {
+      tag: 'og:site_name',
+      desc: 'If your object is part of a larger web site, the name ' +
+            'which should be displayed for the overall site. e.g., "IMDb".'
+    }
+  }
+
+  var meta$ = $('#meta'),
+      detail$ = $('#meta-detail');
   hljs.highlightBlock(meta);
   $(document.body).on('submit', function(e) {
     e.preventDefault();
@@ -9,10 +18,31 @@
 
     meta$.html(escapeHtml(tags));
     hljs.highlightBlock(meta$.get(0));
+
+    $('.hljs-tag').each(function() {
+      $('<i>').addClass('fa fa-question-circle help').insertAfter($(this));
+    });
   });
+
+  meta$.on('click', '.help', function(e) {
+    var tagType = $(e.target).prev('.hljs-tag').children('.hljs-value').eq(0).html();
+    showTagDetail(getTagDetail(tagType));
+  });
+
+  function getTagDetail(type) {
+    type = type.replace(/"/g, '');
+    return tagInfoMap[type];
+  }
+
+  var detailTag = template('<h3>{tag}</h3><div>{desc}</div>');
+  function showTagDetail(m) {
+    var markup = detailTag(m);
+    if (markup) { detail$.html(markup); }
+  }
 
   function template(t) {
     return function(o) {
+      if (!o) { return; }
       var hasValue = true;
       Object.keys(o).forEach(function(k) { if (!o[k]) { hasValue = false; } });
       if (hasValue) {
@@ -84,5 +114,4 @@
     tags = tags.filter(function(val) { return val !== null && val !== undefined; });
     return tags.join('\n');
   }
-
 })();
